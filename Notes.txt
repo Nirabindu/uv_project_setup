@@ -1,0 +1,92 @@
+for case of teams works we needs to use pylance (local development ) + pyright as ci tool 
+
+Pylance local realtime coding stay in user settings. ruff should be in workspace settings not in user settings.
+
+changes in settings.json is used to change editor behavior
+for configuring ruff we can use pyproject.toml or ruff.toml
+
+steps: 
+1.add ruff as a uv add
+2.install ruff in vs code 
+3. install pylance (do some changes in user space setting vs code.)
+4. adding ruff setup in workspace setting.
+
+----
+Setting Up Pre commits.
+1. do uv add --dev pre-commit
+2. then do pre-commit install  -> attach to git hooks.
+Tells Git:
+
+“Before every commit, run pre-commit hooks”
+
+3. create .pre-commit-config.yaml file and add all the hooks here.
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.14.13
+  hooks:
+    # Run the linter.
+    - id: ruff-check
+      args: [ --fix ]  -- do not use fix may change the code 
+    # Run the formatter.
+    - id: ruff-format
+
+
+
+# do not use pytest and pyright in pre commit needs to use them in ci
+#use uv sync to exactly replicate from lock file it will ignore dev dependencies 
+uv sync --dev - for installing dev dependencies also
+uv sync used to replicate the environment for new development setup 
+and we needs to do both uv sync and uv sync --dev
+
+
+# Learning about ci/cd  [Continuous Integration / Continuous Deployment.]
+
+
+
+Develop -> merger in branch -> Build stage -> Testing(Unit, Integration tes(are the different component working good together)), regression test(are the pld component work good with new component.) -> Release Stage[Deployment]
+
+[Deployment Can be can be in 3 1 is dev env , stag env(end to end test), prod env]
+
+CI[build and Test Stage Include]   CD[Deployment]
+
+so from dev to staging will automatically done from staging to prod need approvement. then deploy if Continuous Delivery follow(approval of a person needed if follow Continuous Delivery) -> then deployment after permission 
+
+but in Continuous Deployment from staging to prod automatically 
+(it will dependent on Organization what they follow)
+
+Github Action. we should follow
+in summary 
+- Build -> Test  --> deploy (staging) -> edge test()------>Manually Deploy (Delivery process) to Prod
+
+- Build -> Test  --> deploy (staging) -> edge test()------>automatically Deploy (Deployment process) to Prod
+
+Deployment Strategies do later.
+1. Blue Green Deployment.
+2. Canary Deployment
+3. Rolling Deployment 
+
+
+
+🧩 Why use Ruff + Pylance together?
+🟣 Ruff → forces discipline
+
+“Did you write a type?”
+
+“Did you forget a return type?”
+
+“Are imports sorted?”
+
+“Is the code style consistent?”
+
+🔵 Pylance → checks correctness
+
+“Is this type actually correct?”
+
+“Can this be None?”
+
+“Are you misusing generics?”
+
+“Will this crash at runtime?”
+
+👉 One without the other is incomplete.

@@ -1,0 +1,52 @@
+[project]
+name = "uv-project-setup"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard]>=0.128.0",
+]
+
+[dependency-groups]
+dev = [
+    "detect-secrets>=1.5.0",
+    "pre-commit>=4.5.1",
+    "ruff>=0.14.14",
+]
+
+#* Ruff Setup
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+#completely Exclude the file. no ruff check
+# ** recursively check all file nested and all
+exclude = [
+    "migrations/**",
+    "tests/helpers/legacy_test.py",
+    "scripts/experimental_*.py",
+]
+
+[tool.ruff.format]
+#if dock string contain code format the code also
+docstring-code-format = true
+docstring-code-line-length = 20
+
+[tool.ruff.lint]
+select = ["ALL"]
+#ignoring linting rules if needed.
+ignore = [
+    "D100", # missing docstring in public module
+    # "D101", # missing docstring in public class
+    # "D103", # missing docstring in public function
+    "D104", # missing docstring in __init__.py
+    # "F401", # unused imports (kept intentionally)
+    # "N818", # exception naming
+    # "BLE001", # blind exception (to fix later)
+    # "ERA001", # commented-out code
+    # "ARG001", # unused function arguments
+]
+#Used to specify ignore rules for a specified files
+[tool.ruff.lint.per-file-ignores]
+"path/to/file.py" = ["D"]
+"pattern/*.py"    = ["D","S"]
