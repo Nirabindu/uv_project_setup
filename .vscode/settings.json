@@ -1,0 +1,18 @@
+{
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.ruff": "explicit"
+  },
+  "python.analysis.typeCheckingMode": "strict",
+  "cSpell.words": [
+    "pycache",
+    "pytest",
+    "venv"
+  ]
+}
+
+// do not use "source.fixAll.ruff": true can change the code
+
